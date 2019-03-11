@@ -1,0 +1,201 @@
+/*Program menghitung nilai berdasarkan jenis operasi arikmatika
+Nama Program    : ITB-Calc Vr 1.0
+Masukan         : Menginput dua buah bilangan untuk melakukan perhitungan matematika
+Bilangan pertama X
+Bilangan kedua Y
+Persamaan       : persamaan ada 9 :
+1. Penjumlahan  : Jumlah    = X + Y
+2. Pengurangan  : Kurang    = X – Y
+3. Perkalian    : Kali      = X * Y
+4. Pembagian    : Bagi      = X / Y
+5. Modulus      : Mod       = X % Y
+6. Pangkat      : Pangkat   = X^Y
+7. Faktorial    : Faktorial = X! = X * X-1 * … * 3 * 2 * 1
+8. Eksponen     : e^x       = 1 + sigma tak hingga dimana n=0 (X^n/N!)
+9. Cosinus      : Cos(x)    = sigma takhingga dimana n=0 ((-1)^n*x^2n/(2n)!)==> x dalam radian
+Keluaran        : sesuai dengan pilihan operasi persamaan di atas
+Author          : Ardiansyah / 48910027
+E-Mail          : d.secret86@gmail.com
+Versi           : 1.0
+Tanggal         : CopyRight(c) 12 Januari 2011 – revisi
+Power by        : CodeBlock C Programming 10.05
+Description     : Program ini adalah aplikasi yang berfungsi untuk melakukan perhitungan arikmatika, aplikasi ini di buat dalam bahasa C
+dengan penyajian yang sangat sederhana, aplikasi ini masih dalam bentuk beta jadi bagi yang berminat mengembangkan
+aplikasi ini di persilahkan. aplikasi ini memiliki licensi GPL jadi dapat di sebar luaskan dengan bebas tanpa membayar
+sepeserpun alias Free….
+*/
+//import library
+#include <stdio.h>
+#include <conio.h>
+//deklarasi variabel konstanta
+#define BATAS_ITERASI 10
+#define PI 3.14159265
+//fungsi prototype untuk exponen
+double hitung_pangkat(double x,int y);
+double hitung_faktorial(int y);
+//fungsi prototype untuk menghitung nilai cos(x)
+double hitung_pangkat_cos(double x,int y);
+double hitung_faktorial_cos(int y);
+double hitung_tanda(int y);
+//fungsi utama
+int main(){
+    //deklarasi variable
+    char menu_operasi; //variabel untuk menu pilihan
+    int x,y; //variabel untuk bilangan yang akan di hitung
+    int total; //variabel untuk hasil perhitungan biasa
+    int iterasi; //batas iterasi
+    double hasil_pangkat; //variabel untuk hasil pangkat
+    double hasil_faktorial; //variabel untuk hasil faktorial
+    double hasilsatuiterasi; //variabel untuk hasil satu rasi
+    double hasil_tanda;
+    double ex; //variabel untuk nilai exponen
+    double xdeg, xrad, cos; //variabel untuk mencari nilai cos(x)
+    //inisialisasi variabel
+    iterasi=BATAS_ITERASI; //memberi nilai iterasi sama dengan batas iterasi pada nilai konstan
+    ex=0; //memberi nilai awal untuk exponen
+    cos=0.0; //memberi nilai awal cos sama dengan 0.0
+    //judul
+    printf("============================================================\n");
+    printf("              Power By C Programming | 2011                 \n");
+    printf("============================================================\n");
+
+    while(1) {
+        //pemilihan menu operasi
+        printf("\nMenu Pilihan : \n\n");
+        printf("[1] Penjumlahan\t[2] Pengurangan\t[3] Perkalian\t[4] Pembagian\n[5] Modulus\t[6] Pangkat\t[7] Faktorial\n[8] Eksponen\t[9] Cosinus\t[0] Keluar\n");
+        printf("\nSilahkan pilih jenis operasi yang anda inginkan :"); scanf("%c",&menu_operasi);
+        //pengecekan pilihan menu dengan if()
+        if(menu_operasi=='0') {//jika menu pilihan 0 maka program akan keluar
+            break;
+        }
+        //memilih jenis soal berdasarkan jenis operasi aritmatika
+    if(menu_operasi=='1' || menu_operasi=='2' || menu_operasi=='3' || menu_operasi=='4' || menu_operasi=='5' || menu_operasi=='6') { //input bilangan
+        printf("\nMasukkan Bilangan pertama :");
+        scanf("%d",&x);
+        printf("\nMasukkan Bilangan kedua :");
+        scanf("%d",&y);
+    }else if(menu_operasi=='7'||menu_operasi=='8') {//input bilangan
+        printf("\nMasukkan Bilangan pertama :");
+        scanf("%d",&x);
+    }else if(menu_operasi=='9') {
+        //input bilangan
+        printf("\nMasukkan nilai x (dalam derajat) : ");
+        scanf("%lf",&xdeg);
+    }
+    if(menu_operasi=='1') {//jika menu 1 maka penjumlahan
+        //hitung jumlah
+        total=x+y;
+        //cetak hasil jumlah
+        printf("Hasil penjumlahan %d + %d = %d", x,y,total); break;
+    } else if(menu_operasi=='2') {//jika menu 2 pengurangan
+        //hitung kurang
+        total=x-y;
+        //cetak hasil kurang
+        printf("Hasil pengurangan %d – %d = %d", x,y,total);
+        break;
+    } else if(menu_operasi=='3') {//jika menu nomor 3 yang dipilih
+        //hitung kali
+        total=x*y;
+        //cetak hasil kali
+        printf("Hasil perkalian %d * %d = %d", x,y,total);
+        break;
+    } else if(menu_operasi=='4') {//jika menu nomor 4 yang dipilih
+        //hitung bagi
+        total=x/y;
+        //cetak hasil bagi
+        printf("Hasil bagi %d / %d = %d", x,y,total);
+        break;
+    } else if(menu_operasi=='5') {//jika menu nomor 5 dipilih
+        //hitung modulus
+        total=x%y;
+        //cetak hasil sisa hasil bagi
+        printf("Hasil sisa hasil bagi %d modulus %d = %d", x,y,total);
+        break;
+    } else if(menu_operasi=='6') {//jika menu nomor 6 dipilih
+        //hitung pangkat
+        hasil_pangkat=hitung_pangkat(x,y);
+        //cetak hasil pangkat
+        printf("%d pangkat %d = %lf\n",x,y,hasil_pangkat);
+        break;
+    } else if(menu_operasi=='7') {//jika menu nomor 7 dipilih
+        //hitung bilangan faktorial
+        hasil_faktorial=hitung_faktorial(x);
+        //cetak hasil faktorial
+        printf("%d = %lf \n",x,hasil_faktorial);
+        break;
+    } else if(menu_operasi=='8') {//jika menu nomor 8 yang dipilih
+        for(y=0; y<=iterasi; y++) { //mengihtung nilai exponen
+            hasil_pangkat=hitung_pangkat(x,y); //hitung hasil pangkat
+            hasil_faktorial=hitung_faktorial(y); //hitung hasil faktorial
+            hasilsatuiterasi=hasil_pangkat/hasil_faktorial; //hitung hasil satu iterasi
+            ex=ex+hasilsatuiterasi; //hitung nilai exponen
+        }
+        //cetak nilai exponen
+        printf("e(%d) = %lf", x,ex);
+        break;
+    } else if(menu_operasi=='9') {//jika menu nomor 9 yang dipilih
+        //ubah nilai xdeg ke xradian
+        xrad=xdeg*PI/180;
+        //mencetak hasil konversi bilangan xdeg ke xrad
+        printf("Nilai x (%.3lf derajat) dalam radian adalah : %lf\n", xdeg,xrad);
+        for(y=0; y<=iterasi; y++) { //menghitung
+            hasil_tanda=hitung_tanda(y); //hasil tanda
+            hasil_pangkat=hitung_pangkat_cos(xrad,y); //hasil pangkat
+            hasil_faktorial=hitung_faktorial_cos(y); //hasil faktorial
+            hasilsatuiterasi=hasil_tanda*hasil_pangkat/hasil_faktorial; //hasil satu iterasi
+            cos=cos+hasilsatuiterasi; //nilai cos } //cetak nilai cos(x) printf("\n\n\n\n    cos(%f) = %lf\n\n", xdeg, cos);
+        break;
+        }
+    }
+    //penutup
+    printf("\n\n============================================================\n");
+    printf("              Power By C Programming | 2011                 \n");
+    printf("============================================================\n");
+    }
+}
+//fungsi prototype untuk exponen
+//fungsi prototype perpangkatan
+double hitung_pangkat(double x, int y) {
+    //deklarasi dan inisialisasi variabel
+    int hasil_pangkat=1;
+    int i;
+    for(i=1; i<=y; i++) {
+        hasil_pangkat=hasil_pangkat*x;//hasil pangkat
+    } return hasil_pangkat;//mengembalikan nilai hasil pangkat ke fungsi utama
+}
+//fungsi prototype faktorial
+double hitung_faktorial(int y) {
+    //deklarasi dan inisialisasi variabel
+    int hasil_faktorial=1;
+    int i;
+    for(i=y; i>=1; i--) {
+        hasil_faktorial=hasil_faktorial*i;//hasil faktorial
+    }
+    return hasil_faktorial;//mengembalikan nilai hasil faktorial ke fungsi utama
+}
+//fungsi prototype untuk menghitung nilai cos(x)
+//fungsi prototype hitung tanda
+double hitung_tanda(int y) {
+    double sign;
+    if((y%2)==0) sign=1;
+    else sign=-1;
+    return sign;
+}
+//fungsi prototype hitung hasil pangkat
+double hitung_pangkat_cos(double x, int y) {
+    //deklarasi dan inisialisasi variabel
+    int i;
+    double hasilpangkat = 1;
+    for(i=1;i<=(2*y);++i)
+        hasilpangkat = hasilpangkat * (double)x;//hasil pangkat
+    return hasilpangkat;//mengembalikan nilai hasil pengkat ke fungsi utama
+}
+//fungsi prototype hitung hasil faktorial
+double hitung_faktorial_cos(int y) { /* n! = 1 x 2 x 3 x …… x n */
+    //deklarasi dan inisialisasi
+    double hasilfaktorial = 1;
+    int i;
+    for(i=0;i<(2*y);++i)
+        hasilfaktorial = hasilfaktorial * (double)((2*y)-i);//hasil faktorial untuk cos
+    return hasilfaktorial;//mengembalikan nilai hasil faktorial untuk cos
+}
